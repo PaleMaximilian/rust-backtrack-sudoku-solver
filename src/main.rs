@@ -27,19 +27,10 @@ fn main() {
 }
 
 fn solve(board: &mut Vec<Vec<u8>>) -> bool {
-    for x in board.iter() {
-        for y in x.iter() {
-            print!("{} ", y);
-        }
-        print!("\n");
-    }
-    print!("\n");
-
     let mut tracker: (u8, u8) = (0, 0);
     match find_empty(board, &mut tracker) {
         Some(_) => {
             for x in 1..10 {
-                // println!("Iteration with {}", x);
                 if check_location(board, tracker.1, tracker.0, x as u8) {
                     match board.get_mut(tracker.0 as usize) {
                         Some(row) => match row.get_mut(tracker.1 as usize) {
@@ -72,7 +63,6 @@ fn solve(board: &mut Vec<Vec<u8>>) -> bool {
 }
 
 fn find_empty(board: &mut Vec<Vec<u8>>, tracker: &mut (u8, u8)) -> Option<()> {
-    // println!("Find empty");
     for (i, x) in board.iter().enumerate() {
         for (i2, y) in x.iter().enumerate() {
             if *y == 0 {
@@ -93,17 +83,14 @@ fn check_location(board: &mut Vec<Vec<u8>>, col: u8, row: u8, num: u8) -> bool {
 }
 
 fn check_col(board: &mut Vec<Vec<u8>>, col: u8, num: u8) -> bool {
-    // println!("Checking column {} for {}", col, num);
     for x in board.iter() {
         if *(x.get(col as usize).unwrap()) == num {
-            // println!("{} == {}", x.get(col as usize).unwrap(), num);
             return true;
         }
     }
     false
 }
 fn check_row(board: &mut Vec<Vec<u8>>, row: u8, num: u8) -> bool {
-    // println!("Checking row {} for {}", row, num);
     for x in board.get(row as usize).unwrap().iter() {
         if *x == num {
             return true;
@@ -112,7 +99,6 @@ fn check_row(board: &mut Vec<Vec<u8>>, row: u8, num: u8) -> bool {
     false
 }
 fn check_box(board: &mut Vec<Vec<u8>>, col: u8, row: u8, num: u8) -> bool {
-    // println!("Checking box {} {} for {}", col, row, num);
     for x in 0..3 {
         for j in 0..3 {
             if *(board
@@ -122,15 +108,6 @@ fn check_box(board: &mut Vec<Vec<u8>>, col: u8, row: u8, num: u8) -> bool {
                 .unwrap())
                 == num
             {
-                // println!(
-                //     "{} == {}",
-                //     board
-                //         .get((row + x) as usize)
-                //         .unwrap()
-                //         .get((col + j) as usize)
-                //         .unwrap(),
-                //     num
-                // );
                 return true;
             }
         }
